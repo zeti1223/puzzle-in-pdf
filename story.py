@@ -7,7 +7,13 @@ from weasyprint import HTML
 # choices:  (label, target, required_item | None)
 # gives:    items picked up on entering the location
 # reset:    if True, every choice leaving this location clears the inventory
+# drops:    items removed from the inventory on entering the location
+#           (keeps the number of page variants under control)
+# ending:   "success" or "fail" -> the page gets an ending banner
+PLAY_AGAIN = [("Play again", "start", None)]
+
 story = {
+    #   ACT 1: THE ATTACK
     "start": {
         "title": "Start",
         "text": (
@@ -184,6 +190,8 @@ story = {
             
         ],
     },
+ENDING_NO = {
+    k: i + 1 for i, k in enumerate(k for k, v in story.items() if v.get("ending"))
 }
 
 RULES = [
@@ -198,6 +206,10 @@ RULES = [
     (
         "Page numbers are shuffled, so flipping ahead will not help you. "
         "Use the buttons, not the scroll bar."
+    ),
+    (
+        f"There are {len(ENDING_NO)} different endings. Some are triumphant. "
+        "Some are educational."
     ),
 ]
 
@@ -214,7 +226,9 @@ def explore(story, start="start"):
                 out.append((label, None))  # locked choice
                 continue
             carried = frozenset() if story[node].get("reset") else inv
-            nxt = (target, carried | frozenset(story[target].get("gives", ())))
+            gained = frozenset(story[target].get("gives", ()))
+            lost = frozenset(story[target].get("drops", ()))
+            nxt = (target, (carried | gained) - lost)
             out.append((label, nxt))
             if nxt not in seen:
                 seen.add(nxt)
@@ -223,14 +237,39 @@ def explore(story, start="start"):
     return first, edges
 
 
+def validate(story, edges):
+    for name, node in story.items():
+        assert node["choices"], f"{name} has no choices (dead end)"
+        assert len(node["choices"]) <= 5, f"{name} has too many buttons"
+        for label, target, need in node["choices"]:
+            assert target in story, f"{name} -> unknown node {target}"
+    reached = {n for n, _ in edges}
+    assert reached == set(story), f"unreachable: {sorted(set(story) - reached)}"
+    # every state must be able to reach an ending
+    ok = {s for s in edges if story[s[0]].get("ending")}
+    grew = True
+    while grew:
+        grew = False
+        for s, out in edges.items():
+            if s not in ok and any(n in ok for _, n in out if n):
+                ok.add(s)
+                grew = True
+    stuck = [s for s in edges if s not in ok]
+    assert not stuck, f"states that cannot reach any ending: {stuck[:5]}"
+
+
 first, edges = explore(story)
+validate(story, edges)
 
 #   SHUFFLED PAGE NUMBERS
 rest = [s for s in edges if s != first]
 random.Random(7).shuffle(rest)  # fixed seed = reproducible
 num = {s: i + 1 for i, s in enumerate([first, *rest])}  # start is always page 1
 ordered = sorted(num.items(), key=lambda kv: kv[1])
-print(f"Game pages: {len(num)}, total PDF pages: {len(num) + 1}")
+print(
+    f"Story nodes: {len(story)}, endings: {len(ENDING_NO)}, "
+    f"game pages: {len(num)}, total PDF pages: {len(num) + 1}"
+)
 
 #   RENDERING
 css = """
@@ -246,6 +285,9 @@ span.locked { display: block; border: 1px solid #444; color: #555;
               padding: 3mm; margin-bottom: 2mm; }
 a.bottom-btn { position: absolute; bottom: 12mm; left: 12mm; right: 12mm;
                margin: 0; text-align: center; }
+.end  { font-size: 9pt; letter-spacing: 1pt; margin-bottom: 2mm; }
+.end.success { color: #7ddc8a; }
+.end.fail    { color: #ff7a7a; }
 """
 
 rules_html = "".join(f"<p>{r}</p>" for r in RULES)
@@ -271,9 +313,16 @@ for state, n in ordered:
         else:
             btns += f'<a class="btn" href="#p{num[nxt]}">{label}</a>'
     inv_txt = "Inventory: " + (", ".join(sorted(inv)) if inv else "empty")
+    banner = ""
+    if data.get("ending"):
+        kind = "SUCCESS" if data["ending"] == "success" else "FAILURE"
+        banner = (
+            f'<div class="end {data["ending"]}">'
+            f"ENDING {ENDING_NO[node]} OF {len(ENDING_NO)} - {kind}</div>"
+        )
     html += (
         f'<section class="page" id="p{n}">'
-        f'<div class="inv">{inv_txt}</div>'
+        f'<div class="inv">{inv_txt}</div>{banner}'
         f'<h1>{data["title"]}</h1><p>{data["text"]}</p>{btns}'
         f'<div class="pn">{n}</div></section>'
     )
