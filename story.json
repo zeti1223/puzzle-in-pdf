@@ -1,0 +1,1419 @@
+{
+  "start": "start",
+  "rules": [
+    "This is a detective game played entirely inside this PDF. Click the blue buttons to make your choices and move between pages.",
+    "Your inventory is shown at the top of every page. Some choices are greyed out until you are carrying the right item.",
+    "Page numbers are shuffled, so flipping ahead will not help you. Use the buttons, not the scroll bar.",
+    "There are {endings} different endings. Some are triumphant. Some are educational."
+  ],
+  "story": {
+    "start": {
+      "title": "Start",
+      "text": "It is 3 a.m. Your phone buzzes on the nightstand: an alert from your homelab. Something is very wrong.",
+      "choices": [
+        {
+          "label": "Open the dashboard",
+          "target": "ddos"
+        }
+      ]
+    },
+    "ddos": {
+      "title": "Homelab DDoS",
+      "text": "Traffic graphs are through the roof. Thousands of requests per second are hammering your homelab. The router fans are screaming. You have to act now.",
+      "choices": [
+        {
+          "label": "Remove the Internet connection",
+          "target": "remove_internet"
+        },
+        {
+          "label": "Close all open ports on the router",
+          "target": "close_ports"
+        },
+        {
+          "label": "Read the traffic logs first",
+          "target": "read_logs"
+        },
+        {
+          "label": "Call Greg, your sysadmin friend",
+          "target": "call_greg"
+        }
+      ]
+    },
+    "read_logs": {
+      "title": "Read the traffic logs",
+      "text": "Every single request carries the same User-Agent: 'GregBot/1.0'. Greg is your friend. Greg is a sysadmin. Greg has a sense of humor. Or does he?",
+      "choices": [
+        {
+          "label": "Block that User-Agent",
+          "target": "block_ua"
+        },
+        {
+          "label": "Call Greg. Right now.",
+          "target": "call_greg"
+        },
+        {
+          "label": "Close all open ports on the router",
+          "target": "close_ports"
+        }
+      ],
+      "gives": [
+        "Log excerpt"
+      ]
+    },
+    "block_ua": {
+      "title": "Block the User-Agent",
+      "text": "One line in the reverse proxy config. The traffic drops for exactly three seconds, then returns with a new User-Agent: 'GregBot/1.1'. Someone is mocking you.",
+      "choices": [
+        {
+          "label": "Check who is connected to the router",
+          "target": "check_dhcp"
+        },
+        {
+          "label": "Close all open ports on the router",
+          "target": "close_ports"
+        }
+      ]
+    },
+    "call_greg": {
+      "title": "Call Greg",
+      "text": "Greg picks up on the ninth ring. 'It is 3 a.m. This better be a death.' You explain. He yawns. 'Turn it off and on again. I am going back to sleep.'",
+      "choices": [
+        {
+          "label": "Follow his advice: pull the plug",
+          "target": "remove_internet"
+        },
+        {
+          "label": "Read him the log lines",
+          "target": "greg_logs",
+          "requires": "Log excerpt"
+        },
+        {
+          "label": "Hang up and close the ports",
+          "target": "close_ports"
+        }
+      ]
+    },
+    "greg_logs": {
+      "title": "Greg wakes up",
+      "text": "Silence. Then: 'That is NOT my bot. Check your IoT junk, this looks like a Mirai variant.' He sounds fully awake now, and slightly offended.",
+      "choices": [
+        {
+          "label": "Check who is connected to the router",
+          "target": "check_dhcp"
+        },
+        {
+          "label": "Ask why he knows so much about this",
+          "target": "accuse_greg"
+        },
+        {
+          "label": "Close all open ports on the router",
+          "target": "close_ports"
+        }
+      ]
+    },
+    "accuse_greg": {
+      "title": "Accuse Greg",
+      "text": "'You think I would DDoS my own friend?!' Greg hangs up. Your phone shows one missed call from him and zero chances of more help tonight. You feel a little bad.",
+      "choices": [
+        {
+          "label": "Check who is connected to the router",
+          "target": "check_dhcp"
+        },
+        {
+          "label": "Close all open ports on the router",
+          "target": "close_ports"
+        }
+      ]
+    },
+    "check_dhcp": {
+      "title": "The DHCP list",
+      "text": "Fourteen devices: laptop, phone, TV, the cat feeder, the smart fridge, and one host called 'unknown-7f3a' that you have never seen in your life.",
+      "choices": [
+        {
+          "label": "Unplug the smart fridge",
+          "target": "fridge"
+        },
+        {
+          "label": "Block unknown-7f3a",
+          "target": "block_host"
+        },
+        {
+          "label": "Check the server room camera",
+          "target": "cat_cam"
+        },
+        {
+          "label": "Close all open ports on the router",
+          "target": "close_ports"
+        }
+      ]
+    },
+    "fridge": {
+      "title": "Unplug the fridge",
+      "text": "The fridge was running firmware from 2014 and was indeed part of a botnet, but a very small part. The attack does not even notice. Your ice cream begins to melt for nothing.",
+      "choices": [
+        {
+          "label": "Block unknown-7f3a",
+          "target": "block_host"
+        },
+        {
+          "label": "Close all open ports on the router",
+          "target": "close_ports"
+        }
+      ]
+    },
+    "block_host": {
+      "title": "Block unknown-7f3a",
+      "text": "Blocked. A second later 'unknown-7f3b' appears. Then 7f3c. New hosts keep spawning, and they are not coming from the Internet. They are coming from inside your server.",
+      "choices": [
+        {
+          "label": "Close all open ports on the router",
+          "target": "close_ports"
+        },
+        {
+          "label": "Pull the Internet cable",
+          "target": "remove_internet"
+        }
+      ]
+    },
+    "cat_cam": {
+      "title": "Server room camera",
+      "text": "On the feed: Pixel the cat, asleep on top of the server, one paw on the keyboard. Suspicious, but she has been there since 2 a.m. and has an alibi: she is a cat.",
+      "choices": [
+        {
+          "label": "Back to the DHCP list",
+          "target": "check_dhcp"
+        },
+        {
+          "label": "Close all open ports on the router",
+          "target": "close_ports"
+        }
+      ]
+    },
+    "remove_internet": {
+      "title": "Remove Internet connection",
+      "text": "You rip the ethernet cable out of the router. The blinking lights go quiet. But the attack was already writing to your disks when the link dropped.",
+      "choices": [
+        {
+          "label": "Check the damage",
+          "target": "data_loss_a"
+        }
+      ],
+      "drops": [
+        "Log excerpt"
+      ]
+    },
+    "close_ports": {
+      "title": "Close all open ports on router",
+      "text": "You log into the router and shut every forwarded port: SSH, HTTPS, the Jellyfin stream, everything. The router is quiet for a moment, then the logs start scrolling again.",
+      "choices": [
+        {
+          "label": "Check the damage",
+          "target": "data_loss_b"
+        },
+        {
+          "label": "Check the server console",
+          "target": "kernel_deleted"
+        },
+        {
+          "label": "Read the firewall logs",
+          "target": "firewall_logs"
+        }
+      ],
+      "drops": [
+        "Log excerpt"
+      ]
+    },
+    "data_loss_a": {
+      "title": "20% data loss",
+      "text": "A fifth of your files are gone or corrupted. The rest of the lab is cut off from the world.",
+      "choices": [
+        {
+          "label": "Stay offline and think",
+          "target": "no_internet"
+        },
+        {
+          "label": "Plug the ethernet cable back in",
+          "target": "plug_back"
+        }
+      ]
+    },
+    "data_loss_b": {
+      "title": "20% data loss",
+      "text": "The ports are closed, but the attacker was already inside. A fifth of your files are gone or corrupted, and the system is acting strangely.",
+      "choices": [
+        {
+          "label": "Look at the system more closely",
+          "target": "kernel_deleted"
+        },
+        {
+          "label": "Read the firewall logs",
+          "target": "firewall_logs"
+        }
+      ]
+    },
+    "no_internet": {
+      "title": "No internet",
+      "text": "Silence. Without a connection you cannot look up fixes, ask for help or download anything. You are alone with the damage.",
+      "choices": [
+        {
+          "label": "Plug the ethernet cable back in",
+          "target": "plug_back"
+        },
+        {
+          "label": "Search your desk for anything useful",
+          "target": "desk_search"
+        },
+        {
+          "label": "Knock on Mrs. Nagy's door for Wi-Fi",
+          "target": "neighbor_wifi"
+        },
+        {
+          "label": "Wait for the sun to come up",
+          "target": "logic_bomb"
+        }
+      ]
+    },
+    "desk_search": {
+      "title": "Search the desk",
+      "text": "Under three tangled chargers you find a USB stick labelled 'RESCUE - tested never'. Past you was either a genius or an optimist. Behind it, a sticky note: 'check the attic'.",
+      "choices": [
+        {
+          "label": "Climb up to the attic",
+          "target": "attic"
+        },
+        {
+          "label": "Go back to the server room",
+          "target": "logic_bomb"
+        }
+      ],
+      "gives": [
+        "USB rescue stick"
+      ]
+    },
+    "attic": {
+      "title": "The attic",
+      "text": "Dust, a plastic Christmas tree and a shoebox. Inside: a laminated card in your handwriting. 'OFFSITE BACKUP KEY - bucket homelab-bkp'. You had completely forgotten that you made one.",
+      "choices": [
+        {
+          "label": "Go back to the server room",
+          "target": "logic_bomb"
+        }
+      ],
+      "gives": [
+        "Backup key"
+      ]
+    },
+    "neighbor_wifi": {
+      "title": "Mrs. Nagy's Wi-Fi",
+      "text": "Mrs. Nagy opens the door in a dressing gown, holding a rolling pin. After a lecture about what time it is, she gives you the password: 'macska1234'. Her router is, somehow, very secure.",
+      "choices": [
+        {
+          "label": "Download a rescue ISO and flash a USB stick",
+          "target": "flash_usb"
+        },
+        {
+          "label": "Thank her and go home",
+          "target": "no_internet"
+        }
+      ]
+    },
+    "flash_usb": {
+      "title": "Flash a rescue USB",
+      "text": "At her kitchen table you download the ISO and flash it while Mrs. Nagy watches you like a hawk. Twenty minutes and one cookie later, you hold a bootable stick.",
+      "choices": [
+        {
+          "label": "Go home and check the server",
+          "target": "logic_bomb"
+        }
+      ],
+      "gives": [
+        "USB rescue stick"
+      ]
+    },
+    "logic_bomb": {
+      "title": "3:33 a.m.",
+      "text": "A cron job nobody wrote wakes up. Every fan on the rack changes pitch, the console fills with red text, and /boot disappears. The DDoS was only a smokescreen: the real attack was already inside.",
+      "choices": [
+        {
+          "label": "Open the console",
+          "target": "kernel_deleted"
+        }
+      ]
+    },
+    "firewall_logs": {
+      "title": "Firewall logs",
+      "text": "Between thousands of junk requests hides a single successful SSH login at 02:41, using a key you did not create.",
+      "choices": [
+        {
+          "label": "Check the authorized_keys file",
+          "target": "authkeys"
+        },
+        {
+          "label": "Check the server console",
+          "target": "kernel_deleted"
+        }
+      ]
+    },
+    "authkeys": {
+      "title": "authorized_keys",
+      "text": "Three keys. Yours. 'greg@old-laptop' from 2021. And one with the comment 'backup@localhost', added at 02:41 tonight.",
+      "choices": [
+        {
+          "label": "Remove the strange key",
+          "target": "remove_key"
+        },
+        {
+          "label": "Call Greg about his old key",
+          "target": "accuse_greg"
+        },
+        {
+          "label": "Check the server console",
+          "target": "kernel_deleted"
+        }
+      ]
+    },
+    "remove_key": {
+      "title": "Remove the key",
+      "text": "You delete the key. The terminal answers: 'Connection closed by remote host.' He was already using something else, something much deeper than SSH.",
+      "choices": [
+        {
+          "label": "Check the server console",
+          "target": "kernel_deleted"
+        }
+      ]
+    },
+    "plug_back": {
+      "title": "Plug back ethernet",
+      "text": "The link light turns green again. For a few seconds everything looks fine. Then the traffic graph spikes.",
+      "choices": [
+        {
+          "label": "Check the graphs",
+          "target": "still_attacking"
+        }
+      ]
+    },
+    "still_attacking": {
+      "title": "Still attacking",
+      "text": "The attack never stopped. Whoever is behind it is still hammering your lab, and the router is wide open again.",
+      "choices": [
+        {
+          "label": "Close all open ports on the router",
+          "target": "close_ports"
+        }
+      ]
+    },
+    "kernel_deleted": {
+      "title": "Kernel deleted",
+      "text": "You open the console. The kernel has been deleted. The machine is still running from memory, but it will not survive a reboot. You need to get it back, and fast.",
+      "choices": [
+        {
+          "label": "Ask an AI how to recover the kernel",
+          "target": "ask_ai"
+        },
+        {
+          "label": "Ask Reddit how to recover the kernel",
+          "target": "ask_reddit"
+        },
+        {
+          "label": "Boot the rescue USB",
+          "target": "rescue_usb",
+          "requires": "USB rescue stick"
+        },
+        {
+          "label": "Call Greg again",
+          "target": "greg_kernel"
+        },
+        {
+          "label": "Search the Arch wiki on your phone",
+          "target": "arch_wiki"
+        }
+      ]
+    },
+    "greg_kernel": {
+      "title": "Greg, again",
+      "text": "Greg answers on the first ring. Grumpy, but he cannot resist a broken kernel. 'Do NOT paste random commands. Boot a live USB, chroot in, reinstall from the package cache. Like a civilized person.'",
+      "choices": [
+        {
+          "label": "Boot the rescue USB",
+          "target": "rescue_usb",
+          "requires": "USB rescue stick"
+        },
+        {
+          "label": "Admit you have no USB stick",
+          "target": "no_usb"
+        },
+        {
+          "label": "Ignore Greg and ask Reddit",
+          "target": "ask_reddit"
+        }
+      ]
+    },
+    "no_usb": {
+      "title": "No USB stick",
+      "text": "'Then make one,' says Greg. 'You need a laptop, an ISO and a connection. Phone hotspot will do.' He hangs up to go back to bed. Again.",
+      "choices": [
+        {
+          "label": "Tether your phone and flash a stick",
+          "target": "flash_usb_home"
+        },
+        {
+          "label": "Ask the AI instead",
+          "target": "ask_ai"
+        }
+      ]
+    },
+    "flash_usb_home": {
+      "title": "Flash a rescue USB",
+      "text": "The phone hotspot crawls, the ISO downloads, the progress bar lies about its percentage. Eventually you hold a bootable stick with a freshly written 'RESCUE' label.",
+      "choices": [
+        {
+          "label": "Boot the rescue USB",
+          "target": "rescue_usb"
+        }
+      ],
+      "gives": [
+        "USB rescue stick"
+      ]
+    },
+    "arch_wiki": {
+      "title": "The Arch wiki",
+      "text": "Three hours of reading compressed into twelve minutes. Verdict: you need a live USB, a chroot and patience. It also says, in bold, not to run commands you do not understand.",
+      "choices": [
+        {
+          "label": "Boot the rescue USB",
+          "target": "rescue_usb",
+          "requires": "USB rescue stick"
+        },
+        {
+          "label": "No USB. Make one",
+          "target": "flash_usb_home"
+        },
+        {
+          "label": "Ignore the bold text, ask an AI",
+          "target": "ask_ai"
+        }
+      ]
+    },
+    "ask_ai": {
+      "title": "Ask an AI",
+      "text": "You paste the panic-induced error logs into an AI chatbot. It confidently outputs a multi-step kernel compilation and reinstallation command string. You copy-paste and execute it.",
+      "choices": [
+        {
+          "label": "See what happens",
+          "target": "unknown_event"
+        }
+      ],
+      "gives": [
+        "Ai answer"
+      ]
+    },
+    "ask_reddit": {
+      "title": "Ask Reddit",
+      "text": "You post on r/homelab with the title: 'PLEASE HELP MY KERNEL IS DELETED'. Almost instantly a user called kev_the_kernel replies with a helpful-looking shell script.",
+      "choices": [
+        {
+          "label": "Execute the Reddit advice",
+          "target": "unknown_event"
+        },
+        {
+          "label": "Read the other comments first",
+          "target": "reddit_comments"
+        }
+      ],
+      "gives": [
+        "random guy from reddit"
+      ]
+    },
+    "reddit_comments": {
+      "title": "The other comments",
+      "text": "The top comment, from a moderator: 'Boot a live USB. Never paste scripts from strangers.' Kev's reply was posted forty seconds after you. Nobody diagnoses a kernel in forty seconds. Unless they already knew.",
+      "choices": [
+        {
+          "label": "Run Kev's script anyway",
+          "target": "unknown_event"
+        },
+        {
+          "label": "Boot the rescue USB",
+          "target": "rescue_usb",
+          "requires": "USB rescue stick"
+        },
+        {
+          "label": "Make a rescue USB",
+          "target": "flash_usb_home"
+        }
+      ],
+      "gives": [
+        "Kev's handle"
+      ]
+    },
+    "unknown_event": {
+      "title": "Something happened",
+      "text": "The terminal flashes a cascade of cryptic messages. The screen freezes for a moment. You aren't entirely sure what just executed, but the system state has fundamentally shifted.",
+      "choices": [
+        {
+          "label": "Try to revert using the AI method",
+          "target": "kernel_deleted",
+          "requires": "Ai answer"
+        },
+        {
+          "label": "Inspect what the AI command changed",
+          "target": "check_changes",
+          "requires": "Ai answer"
+        },
+        {
+          "label": "Wait for the system response",
+          "target": "blackout",
+          "requires": "random guy from reddit"
+        }
+      ]
+    },
+    "check_changes": {
+      "title": "Inspect the damage",
+      "text": "The AI built a kernel for the wrong CPU architecture, set the root password to 'password' 'for convenience' and disabled the firewall 'to avoid conflicts'. Impressive, honestly.",
+      "choices": [
+        {
+          "label": "Reboot and hope for the best",
+          "target": "panic_loop"
+        },
+        {
+          "label": "Ask the AI to fix its own mistake",
+          "target": "ai_followup"
+        },
+        {
+          "label": "Boot the rescue USB",
+          "target": "rescue_usb",
+          "requires": "USB rescue stick"
+        }
+      ]
+    },
+    "panic_loop": {
+      "title": "Kernel panic",
+      "text": "The machine boots, panics, reboots, panics. A loop. The fans spin up and down like a broken ventilator. Each cycle takes forty seconds, and your patience takes forty seconds less.",
+      "choices": [
+        {
+          "label": "Pull the plug and rethink",
+          "target": "kernel_deleted"
+        },
+        {
+          "label": "Boot the rescue USB",
+          "target": "rescue_usb",
+          "requires": "USB rescue stick"
+        },
+        {
+          "label": "Rage-quit the whole hobby",
+          "target": "ending_touch_grass"
+        }
+      ]
+    },
+    "ai_followup": {
+      "title": "The AI apologizes",
+      "text": "'You are absolutely right, and I apologize!' it says, then offers a cleaner solution: 'rm -rf /boot /etc /var' followed by a fresh install. It sounds extremely confident.",
+      "choices": [
+        {
+          "label": "Run it. It sounds confident",
+          "target": "ai_wipe"
+        },
+        {
+          "label": "Check the Arch wiki instead",
+          "target": "arch_wiki"
+        }
+      ]
+    },
+    "ai_wipe": {
+      "title": "Run the command",
+      "text": "The terminal scrolls for a very long time. Then it stops. Then the terminal itself disappears, because the thing that was running it no longer exists.",
+      "choices": [
+        {
+          "label": "Look at what is left",
+          "target": "ending_bricked"
+        }
+      ]
+    },
+    "blackout": {
+      "title": "Everything goes black",
+      "text": "The monitors click off. The server chassis fans wind down to complete silence. Total darkness fills the room.",
+      "choices": [
+        {
+          "label": "Hit the physical power button to restart",
+          "target": "restart"
+        },
+        {
+          "label": "Wait in the dark",
+          "target": "blackout"
+        },
+        {
+          "label": "Check your phone",
+          "target": "phone_dm"
+        }
+      ],
+      "reset": true
+    },
+    "phone_dm": {
+      "title": "A new message",
+      "text": "One new DM from kev_the_kernel: 'thx for the root password lol. have fun rebuilding'. He deletes the message while you are still reading it.",
+      "choices": [
+        {
+          "label": "Hit the physical power button to restart",
+          "target": "restart"
+        }
+      ],
+      "gives": [
+        "Kev's handle"
+      ]
+    },
+    "restart": {
+      "title": "Restart",
+      "text": "The BIOS splash screen appears. Services begin initializing one by one as the OS boots back up from disk.",
+      "choices": [
+        {
+          "label": "Check the container status",
+          "target": "containers_down"
+        }
+      ]
+    },
+    "rescue_usb": {
+      "title": "The rescue USB",
+      "text": "The stick boots on the first try, which feels like a personal gift from past you. A live shell, a blinking cursor, and your dead disks waiting to be mounted.",
+      "choices": [
+        {
+          "label": "Mount, chroot and reinstall the kernel",
+          "target": "kernel_ok"
+        }
+      ],
+      "drops": [
+        "Ai answer",
+        "random guy from reddit"
+      ]
+    },
+    "kernel_ok": {
+      "title": "Kernel reinstalled",
+      "text": "The package cache comes through. A fresh kernel sits in /boot again. Before rebooting, you notice the disk still has other surprises hiding in it.",
+      "choices": [
+        {
+          "label": "Scan the disk for hidden tools",
+          "target": "scan_backdoor"
+        },
+        {
+          "label": "Reboot right now",
+          "target": "reboot_risky"
+        }
+      ]
+    },
+    "reboot_risky": {
+      "title": "Reboot right now",
+      "text": "The system boots. Twenty minutes later the logic bomb you did not remove fires a second time and the kernel vanishes again. At least the rescue stick is still warm.",
+      "choices": [
+        {
+          "label": "Open the console",
+          "target": "kernel_deleted"
+        }
+      ]
+    },
+    "scan_backdoor": {
+      "title": "Hidden tools",
+      "text": "Hidden in /etc and /usr/lib: a logic-bomb cron job, a rogue SSH key and a text file called README_KEV.txt: 'gg ez - kev_the_kernel'. Whoever he is, he is proud of it.",
+      "choices": [
+        {
+          "label": "Document it, delete it and reboot",
+          "target": "clean_boot"
+        }
+      ],
+      "gives": [
+        "Kev's handle"
+      ]
+    },
+    "clean_boot": {
+      "title": "A clean boot",
+      "text": "The BIOS splash, then the login prompt. No red text, no strange kernel modules. Services start one by one, politely, like a system with nothing to hide.",
+      "choices": [
+        {
+          "label": "Check the container status",
+          "target": "clean_hub"
+        }
+      ],
+      "drops": [
+        "USB rescue stick"
+      ]
+    },
+    "clean_hub": {
+      "title": "Clean slate",
+      "text": "The system is clean, finally. SSH works, the OS is healthy. But Docker is empty: no containers, no databases, no media server. You have a clean slate and a very long list.",
+      "choices": [
+        {
+          "label": "Check the backups",
+          "target": "backups_clean"
+        },
+        {
+          "label": "Rebuild from your compose files",
+          "target": "github_mirror"
+        },
+        {
+          "label": "Hunt for the attacker",
+          "target": "hunt_kev"
+        },
+        {
+          "label": "Harden the lab",
+          "target": "harden"
+        },
+        {
+          "label": "Call Greg to come over",
+          "target": "greg_arrives"
+        }
+      ]
+    },
+    "greg_arrives": {
+      "title": "Greg arrives",
+      "text": "Twenty minutes later Greg is at your door with two coffees, a spare SSD and a look that says 'I told you so'. He has also forgiven you for anything you said earlier.",
+      "choices": [
+        {
+          "label": "Let him help with the backups",
+          "target": "backups_clean"
+        },
+        {
+          "label": "Let him help you hunt the attacker",
+          "target": "hunt_kev"
+        },
+        {
+          "label": "Send him home and keep going",
+          "target": "clean_hub"
+        }
+      ]
+    },
+    "harden": {
+      "title": "Harden the lab",
+      "text": "Key-only SSH. fail2ban. Automatic updates. You feel the smug satisfaction of locking the door after the burglar has already left, and you enjoy every second of it.",
+      "choices": [
+        {
+          "label": "Move the IoT junk to its own VLAN",
+          "target": "vlan_iot"
+        },
+        {
+          "label": "Back to the lab",
+          "target": "clean_hub"
+        }
+      ]
+    },
+    "vlan_iot": {
+      "title": "The IoT VLAN",
+      "text": "The smart fridge, the TV and the cat feeder are moved into a room with no windows and no keys. The fridge is not happy about it, but then again, it never was.",
+      "choices": [
+        {
+          "label": "Back to the lab",
+          "target": "clean_hub"
+        }
+      ]
+    },
+    "backups_clean": {
+      "title": "The local backups",
+      "text": "Your NAS holds years of backups. All encrypted, with a note: 'Send 0.5 BTC for the key. You have 24 hours.' The offsite bucket was untouched, if you can unlock it.",
+      "choices": [
+        {
+          "label": "Decrypt the offsite backup",
+          "target": "offsite_clean_restore",
+          "requires": "Backup key"
+        },
+        {
+          "label": "Search the attic for the key",
+          "target": "attic_clean"
+        },
+        {
+          "label": "Pay the ransom",
+          "target": "pay_ransom_b"
+        },
+        {
+          "label": "Back to the lab",
+          "target": "clean_hub"
+        }
+      ]
+    },
+    "attic_clean": {
+      "title": "The attic",
+      "text": "Same attic, same dust, same plastic tree. A laminated card: 'OFFSITE BACKUP KEY'. You promise to buy past you a coffee.",
+      "choices": [
+        {
+          "label": "Back to the backups",
+          "target": "backups_clean"
+        }
+      ],
+      "gives": [
+        "Backup key"
+      ]
+    },
+    "pay_ransom_b": {
+      "title": "Pay the ransom",
+      "text": "The wallet is open again. You know this system is clean, which makes paying even sillier. Your finger hovers anyway.",
+      "choices": [
+        {
+          "label": "Send the payment",
+          "target": "ending_paid"
+        },
+        {
+          "label": "Close the wallet",
+          "target": "backups_clean"
+        }
+      ]
+    },
+    "containers_down": {
+      "title": "Containers offline",
+      "text": "SSH access is restored, and the base OS is healthy. However, Docker is completely empty—all your containers, databases, and media servers failed to start up automatically.",
+      "choices": [
+        {
+          "label": "Check the backups",
+          "target": "backups"
+        },
+        {
+          "label": "Search the server for traces",
+          "target": "traces"
+        },
+        {
+          "label": "Run a rootkit scanner",
+          "target": "rkhunter"
+        },
+        {
+          "label": "Rebuild from your compose files",
+          "target": "compose_git"
+        },
+        {
+          "label": "Burn it all down and walk away",
+          "target": "ending_touch_grass"
+        }
+      ]
+    },
+    "traces": {
+      "title": "Traces",
+      "text": "In /root: README_KEV.txt. 'gg ez. i was never here. - kev_the_kernel'. Next to it a hidden cron job, an unknown kernel module and a very smug piece of ASCII-art cat.",
+      "choices": [
+        {
+          "label": "Check the backups",
+          "target": "backups"
+        },
+        {
+          "label": "Run a rootkit scanner",
+          "target": "rkhunter"
+        },
+        {
+          "label": "Back to the container status",
+          "target": "containers_down"
+        }
+      ],
+      "gives": [
+        "Kev's handle"
+      ]
+    },
+    "rkhunter": {
+      "title": "Rootkit scanner",
+      "text": "The scanner takes forever, then prints one word in red: INFECTED. The kernel from the Reddit script carries a backdoor, and so does half of /usr/bin. Nothing on this machine can be trusted.",
+      "choices": [
+        {
+          "label": "Wipe the server and reinstall",
+          "target": "clean_install"
+        },
+        {
+          "label": "Check the backups",
+          "target": "backups"
+        },
+        {
+          "label": "Back to the container status",
+          "target": "containers_down"
+        }
+      ]
+    },
+    "backups": {
+      "title": "The local backups",
+      "text": "Your NAS holds years of backups. All encrypted, with a note: 'Send 0.5 BTC for the key. You have 24 hours.' The offsite bucket is a different story, if you can unlock it.",
+      "choices": [
+        {
+          "label": "Pay the ransom",
+          "target": "pay_ransom"
+        },
+        {
+          "label": "Search for the offsite backup key",
+          "target": "attic_late"
+        },
+        {
+          "label": "Decrypt the offsite backup",
+          "target": "offsite_restore",
+          "requires": "Backup key"
+        },
+        {
+          "label": "Back to the container status",
+          "target": "containers_down"
+        }
+      ]
+    },
+    "pay_ransom": {
+      "title": "Pay the ransom",
+      "text": "The wallet is open. 0.5 BTC is more than the server cost. Your finger hovers over the button. In your head Greg says: 'Never pay.'",
+      "choices": [
+        {
+          "label": "Send the payment",
+          "target": "ending_paid"
+        },
+        {
+          "label": "Close the wallet",
+          "target": "backups"
+        }
+      ]
+    },
+    "attic_late": {
+      "title": "The attic",
+      "text": "Dust, a plastic Christmas tree and a shoebox. Inside, a laminated card in your handwriting: 'OFFSITE BACKUP KEY - bucket homelab-bkp'. Past you really was a genius.",
+      "choices": [
+        {
+          "label": "Go back to the backups",
+          "target": "backups"
+        }
+      ],
+      "gives": [
+        "Backup key"
+      ]
+    },
+    "offsite_restore": {
+      "title": "Decrypt the offsite backup",
+      "text": "The key works. The bucket holds your data from last Tuesday: photos, databases, the media library. But the server in front of you is running a kernel that Kev wrote.",
+      "choices": [
+        {
+          "label": "Restore onto this server right now",
+          "target": "restore_infected"
+        },
+        {
+          "label": "Wipe the server, then restore",
+          "target": "clean_install"
+        }
+      ]
+    },
+    "restore_infected": {
+      "title": "Restore onto the infected server",
+      "text": "Eight hours later every file is back. You sleep like a baby. At 3 a.m. your phone buzzes: everything is encrypted again. The backdoor was just waiting for fresh data.",
+      "choices": [
+        {
+          "label": "Wipe and reinstall for real",
+          "target": "clean_install"
+        },
+        {
+          "label": "Throw the server out of the window",
+          "target": "ending_touch_grass"
+        }
+      ]
+    },
+    "compose_git": {
+      "title": "Rebuild from compose files",
+      "text": "Your compose files lived in a Git repo. On this server. You stare at the empty disk and a cold realization settles in. Also, this server is still full of Kev.",
+      "choices": [
+        {
+          "label": "Wipe the server and start fresh",
+          "target": "clean_install"
+        },
+        {
+          "label": "Rebuild right here, right now",
+          "target": "rebuild_infected"
+        }
+      ]
+    },
+    "rebuild_infected": {
+      "title": "Rebuild on the infected host",
+      "text": "The containers come up one by one. So does Kev's backdoor, now with a front-row seat to your brand-new database passwords. At dawn every service is sending spam to the entire Internet.",
+      "choices": [
+        {
+          "label": "Wipe and reinstall for real",
+          "target": "clean_install"
+        },
+        {
+          "label": "Pull the plug and walk away",
+          "target": "ending_touch_grass"
+        }
+      ]
+    },
+    "clean_install": {
+      "title": "Wipe and reinstall",
+      "text": "You boot an installer, delete every partition and watch a clean OS go on. The backdoor is gone. So is everything else, until you bring it back.",
+      "choices": [
+        {
+          "label": "Restore the offsite backup",
+          "target": "offsite_clean_restore",
+          "requires": "Backup key"
+        },
+        {
+          "label": "Rebuild from the GitHub mirror",
+          "target": "github_mirror"
+        },
+        {
+          "label": "Rebuild by hand, from memory",
+          "target": "rebuild_by_hand"
+        }
+      ]
+    },
+    "offsite_clean_restore": {
+      "title": "Restore the offsite backup",
+      "text": "On a clean system the bucket finally gives up your data from last Tuesday. Photos, databases, the media library, byte by byte. It takes hours. It is the best hours of your week.",
+      "choices": [
+        {
+          "label": "Verify the checksums",
+          "target": "backup_verify"
+        },
+        {
+          "label": "Start the containers right away",
+          "target": "containers_up"
+        }
+      ],
+      "gives": [
+        "Restored data"
+      ],
+      "drops": [
+        "Backup key"
+      ]
+    },
+    "containers_up": {
+      "title": "Start the containers",
+      "text": "docker compose up -d. Pi-hole, Jellyfin and Vaultwarden greet you like old friends. Three containers refuse to start because their images disappeared. You decide to check the data anyway.",
+      "choices": [
+        {
+          "label": "Verify the checksums",
+          "target": "backup_verify"
+        }
+      ]
+    },
+    "backup_verify": {
+      "title": "Checksums match",
+      "text": "Every checksum matches. For the first time tonight something is exactly as it should be. But somewhere out there, kev_the_kernel is still laughing.",
+      "choices": [
+        {
+          "label": "Hunt for the attacker",
+          "target": "hunt_kev"
+        },
+        {
+          "label": "Harden the lab",
+          "target": "harden"
+        }
+      ]
+    },
+    "github_mirror": {
+      "title": "The GitHub mirror",
+      "text": "Three months ago you mirrored the repo to GitHub 'just in case'. The compose files are there. The data is not. Rebuilding means starting every service empty.",
+      "choices": [
+        {
+          "label": "Rebuild every service from the mirror",
+          "target": "rebuild_services"
+        },
+        {
+          "label": "See if any data survived",
+          "target": "survivors"
+        }
+      ]
+    },
+    "survivors": {
+      "title": "Survivors",
+      "text": "On an old laptop and the attic Raspberry Pi you find 2019 photos, a database dump from March and half the media library. It is not much, but it is yours.",
+      "choices": [
+        {
+          "label": "Rebuild every service",
+          "target": "rebuild_services"
+        }
+      ]
+    },
+    "rebuild_by_hand": {
+      "title": "Rebuild by hand",
+      "text": "You rebuild from memory. You forget three passwords, two port numbers and why Nextcloud needed that one weird cron job. After six hours half the services work.",
+      "choices": [
+        {
+          "label": "Keep going until it all works",
+          "target": "rebuild_services"
+        },
+        {
+          "label": "Pull the plug on this madness",
+          "target": "ending_touch_grass"
+        }
+      ]
+    },
+    "rebuild_services": {
+      "title": "Rebuild the services",
+      "text": "One by one the green lights appear: Jellyfin, Nextcloud, the databases. Empty, but alive. The dashboards look beautiful and hollow, like a brand new apartment.",
+      "choices": [
+        {
+          "label": "Set up proper, tested backups",
+          "target": "new_backups"
+        },
+        {
+          "label": "Hunt for the attacker first",
+          "target": "hunt_kev"
+        }
+      ]
+    },
+    "new_backups": {
+      "title": "3-2-1 and a test",
+      "text": "Three copies. Two kinds of media. One offsite. And, for the first time in your life, an actual restore test. Past you would be proud. Future you will be grateful.",
+      "choices": [
+        {
+          "label": "Close the laptop. It is morning",
+          "target": "ending_phoenix"
+        },
+        {
+          "label": "Not done: find who did this",
+          "target": "hunt_kev"
+        }
+      ]
+    },
+    "hunt_kev": {
+      "title": "Hunt for the attacker",
+      "text": "You have a README file, a forum name and a lot of anger. You open a terminal and a browser, and start digging.",
+      "choices": [
+        {
+          "label": "Search for the username",
+          "target": "whois_kev",
+          "requires": "Kev's handle"
+        },
+        {
+          "label": "Look through his connection logs",
+          "target": "kev_logs"
+        },
+        {
+          "label": "Set a honeypot",
+          "target": "honeypot_setup"
+        }
+      ]
+    },
+    "kev_logs": {
+      "title": "Connection logs",
+      "text": "He came through three proxies and a Tor exit node. Professional? Or just someone who follows tutorials very carefully?",
+      "choices": [
+        {
+          "label": "Set a honeypot",
+          "target": "honeypot_setup"
+        },
+        {
+          "label": "Back to the investigation",
+          "target": "hunt_kev"
+        }
+      ]
+    },
+    "whois_kev": {
+      "title": "Who is kev_the_kernel?",
+      "text": "The username shows up on a forum, a game server and a school coding club page. His avatar is a cat in sunglasses. His latest post: 'anyone know how to bypass a firewall? asking for homework'.",
+      "choices": [
+        {
+          "label": "Set a honeypot to catch him",
+          "target": "honeypot_setup"
+        },
+        {
+          "label": "Send him a message",
+          "target": "dm_kev"
+        },
+        {
+          "label": "Report the username",
+          "target": "report_kev"
+        }
+      ],
+      "drops": [
+        "Kev's handle"
+      ]
+    },
+    "honeypot_setup": {
+      "title": "Set a honeypot",
+      "text": "You leave a fake server with a fake SSH door 'accidentally' open, full of files named passwords_final_v2.xlsx. Now you wait.",
+      "choices": [
+        {
+          "label": "Wait for Kev",
+          "target": "kev_returns"
+        }
+      ],
+      "drops": [
+        "Kev's handle"
+      ]
+    },
+    "kev_returns": {
+      "title": "Kev returns",
+      "text": "At 5:12 a.m. the honeypot lights up. Someone logs in and starts exploring. He types very slowly. 'ls'. 'cd'. 'ls' again. He seems nervous.",
+      "choices": [
+        {
+          "label": "Trace the connection",
+          "target": "trace_kev"
+        },
+        {
+          "label": "Open a chat window in his terminal",
+          "target": "dm_kev"
+        },
+        {
+          "label": "Hack him back",
+          "target": "counter_hack"
+        }
+      ]
+    },
+    "trace_kev": {
+      "title": "Trace the connection",
+      "text": "Behind the proxies: a residential IP, then a student account at a school in the next county. Kev is, at the very most, sixteen years old.",
+      "choices": [
+        {
+          "label": "Send him a message",
+          "target": "dm_kev"
+        },
+        {
+          "label": "Report him to the police",
+          "target": "report_kev"
+        },
+        {
+          "label": "Hack him back",
+          "target": "counter_hack"
+        }
+      ]
+    },
+    "dm_kev": {
+      "title": "Talk to Kev",
+      "text": "You type: 'Hi Kev. We need to talk.' A long pause. Then: 'omg pls dont call my mom'. He sounds exactly as scared as a sixteen-year-old should.",
+      "choices": [
+        {
+          "label": "Offer him a deal",
+          "target": "kev_deal"
+        },
+        {
+          "label": "Tell him you are calling the police",
+          "target": "report_kev"
+        }
+      ]
+    },
+    "kev_deal": {
+      "title": "The deal",
+      "text": "You offer: help rebuild and harden the lab, write a full report on how he got in, and apologize to Greg. In exchange: no police, no mom. He says yes in under two seconds.",
+      "choices": [
+        {
+          "label": "Shake on it",
+          "target": "ending_redemption"
+        }
+      ]
+    },
+    "report_kev": {
+      "title": "Report Kev",
+      "text": "You write a thorough report: logs, timestamps, the README, the Reddit thread. The officer reads it twice, sips her coffee and says: 'Wow. Please do not hack anyone back.'",
+      "choices": [
+        {
+          "label": "Hand over the evidence at the station",
+          "target": "police_station"
+        }
+      ]
+    },
+    "police_station": {
+      "title": "At the police station",
+      "text": "A detective with a tired face takes your USB stick full of logs. 'We will be in touch,' she says. 'And your data? Is it safe?'",
+      "choices": [
+        {
+          "label": "Tell her it is fully restored",
+          "target": "ending_full_recovery",
+          "requires": "Restored data"
+        },
+        {
+          "label": "Tell her honestly: a fifth is gone",
+          "target": "ending_justice"
+        }
+      ]
+    },
+    "counter_hack": {
+      "title": "Hack him back",
+      "text": "You fire a stress-testing tool at his IP. It feels incredible for eleven seconds. Then you notice the IP belongs to a shared school router.",
+      "choices": [
+        {
+          "label": "Keep going. He deserves it",
+          "target": "ending_counterhack"
+        },
+        {
+          "label": "Stop. Think",
+          "target": "hunt_kev"
+        }
+      ]
+    },
+    "ending_full_recovery": {
+      "title": "Full Recovery",
+      "text": "Your lab is back, your data is back, and Kev's case sits in a folder somewhere in the county. You set up alerting, expire Greg's old key and hang a sign over the rack: 'THE RESCUE USB IS NOT DECORATION.' Pixel sleeps on the server again.",
+      "choices": [
+        {
+          "label": "Play again",
+          "target": "start"
+        }
+      ],
+      "reset": true,
+      "ending": "success"
+    },
+    "ending_phoenix": {
+      "title": "Phoenix",
+      "text": "The photos are gone, the databases are gone. But the compose files are alive, the lab is new, and for the first time you have real backups. Starting over is the oldest homelab tradition there is.",
+      "choices": [
+        {
+          "label": "Play again",
+          "target": "start"
+        }
+      ],
+      "reset": true,
+      "ending": "success"
+    },
+    "ending_redemption": {
+      "title": "Redemption Arc",
+      "text": "Kev writes a forty-page report, fixes every hole he used, and now maintains your lab on weekends. Greg gets a public apology. The fridge lives on a VLAN. Everyone is safer, a bit embarrassed and strangely proud.",
+      "choices": [
+        {
+          "label": "Play again",
+          "target": "start"
+        }
+      ],
+      "reset": true,
+      "ending": "success"
+    },
+    "ending_justice": {
+      "title": "Justice, With Gaps",
+      "text": "Kev gets a stern talk from a very tired detective. Your lab recovers, with a fifth of its memories missing. You learn to love the numbers 3-2-1, and you never forget them again.",
+      "choices": [
+        {
+          "label": "Play again",
+          "target": "start"
+        }
+      ],
+      "reset": true,
+      "ending": "success"
+    },
+    "ending_bricked": {
+      "title": "Bricked",
+      "text": "Nothing boots. Nothing mounts. Your disks hold a very organized pile of zeros. The AI would like to apologize again, but its server is not your server.",
+      "choices": [
+        {
+          "label": "Play again",
+          "target": "start"
+        }
+      ],
+      "reset": true,
+      "ending": "fail"
+    },
+    "ending_paid": {
+      "title": "Paid and Played",
+      "text": "The payment goes through. Nothing happens. Then a second note appears: 'Thanks! The price is now 1.0 BTC.' You are poorer, the data is still encrypted, and Kev has a new gaming PC.",
+      "choices": [
+        {
+          "label": "Play again",
+          "target": "start"
+        }
+      ],
+      "reset": true,
+      "ending": "fail"
+    },
+    "ending_touch_grass": {
+      "title": "Touch Grass",
+      "text": "You unplug everything. The silence is wonderful. You sell the rack, buy a plant and discover that sunlight exists. You do not miss the 3 a.m. alerts. You do, slightly, miss the lab.",
+      "choices": [
+        {
+          "label": "Play again",
+          "target": "start"
+        }
+      ],
+      "reset": true,
+      "ending": "fail"
+    },
+    "ending_counterhack": {
+      "title": "The Wrong Tool",
+      "text": "You took down a school network three days before exams. Kev gets a warning. You get a very serious letter from a lawyer. Greg offers to be a character witness. It is not enough.",
+      "choices": [
+        {
+          "label": "Play again",
+          "target": "start"
+        }
+      ],
+      "reset": true,
+      "ending": "fail"
+    }
+  }
+}
