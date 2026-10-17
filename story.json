@@ -36,8 +36,38 @@
         {
           "label": "Call Greg, your sysadmin friend",
           "target": "call_greg"
+        },
+        {
+          "label": "Go back to sleep",
+          "target": "oversleep"
         }
       ]
+    },
+    "oversleep": {
+      "title": "Five more minutes",
+      "text": "You read the alert, decide it is probably the cat on the keyboard again, and put the phone face down. The nightstand glows with a second notification, then a third. The pillow is very soft.",
+      "choices": [
+        {
+          "label": "Sleep",
+          "target": "ending_oversleep"
+        },
+        {
+          "label": "Fine. Open the dashboard",
+          "target": "ddos"
+        }
+      ]
+    },
+    "ending_oversleep": {
+      "title": "Snoozed",
+      "text": "You wake up at 9:40 to forty-one notifications and the smell of hot dust. Every disk is encrypted, the router is a brick, and Pixel is still asleep on the warm server. The alert was not the cat.",
+      "choices": [
+        {
+          "label": "Play again",
+          "target": "start"
+        }
+      ],
+      "reset": true,
+      "ending": "fail"
     },
     "read_logs": {
       "title": "Read the traffic logs",
@@ -52,12 +82,48 @@
           "target": "call_greg"
         },
         {
+          "label": "Check the Pi-hole DNS log",
+          "target": "pihole_log"
+        },
+        {
           "label": "Close all open ports on the router",
           "target": "close_ports"
         }
       ],
       "gives": [
         "Log excerpt"
+      ]
+    },
+    "pihole_log": {
+      "title": "Pi-hole query log",
+      "text": "Pi-hole shows 40,000 lookups for 'cdn-update.gregbot.lol' in ten minutes. The domain was registered yesterday. Blocking it would feel great, if the attack used DNS at all.",
+      "choices": [
+        {
+          "label": "Block the domain anyway",
+          "target": "block_domain"
+        },
+        {
+          "label": "Back to the traffic logs",
+          "target": "read_logs"
+        },
+        {
+          "label": "Close all open ports on the router",
+          "target": "close_ports"
+        }
+      ]
+    },
+    "block_domain": {
+      "title": "Block the domain",
+      "text": "One click. The graph does not even flinch: the bots talk to raw IP addresses, and the domain was only there to look scary. Somewhere, a script kiddie is giggling.",
+      "choices": [
+        {
+          "label": "Check who is connected to the router",
+          "target": "check_dhcp"
+        },
+        {
+          "label": "Close all open ports on the router",
+          "target": "close_ports"
+        }
       ]
     },
     "block_ua": {
@@ -142,6 +208,60 @@
           "target": "cat_cam"
         },
         {
+          "label": "Open the Proxmox dashboard",
+          "target": "proxmox"
+        },
+        {
+          "label": "Close all open ports on the router",
+          "target": "close_ports"
+        }
+      ]
+    },
+    "proxmox": {
+      "title": "Proxmox",
+      "text": "Eleven VMs, and one you have forgotten: VM 104, 'test-DO-NOT-DELETE', uptime 411 days, CPU at 100 percent. You do not remember creating it. You do not remember anyone creating it.",
+      "choices": [
+        {
+          "label": "Shut down VM 104",
+          "target": "vm_stop"
+        },
+        {
+          "label": "Open its console",
+          "target": "vm_console"
+        },
+        {
+          "label": "Back to the DHCP list",
+          "target": "check_dhcp"
+        }
+      ]
+    },
+    "vm_stop": {
+      "title": "Shut down VM 104",
+      "text": "The VM powers off and the traffic graph drops by a third. Sixty seconds later a cron job on the host starts it again, as if nothing had happened. Interesting. Very interesting.",
+      "choices": [
+        {
+          "label": "Open its console",
+          "target": "vm_console"
+        },
+        {
+          "label": "Back to the DHCP list",
+          "target": "check_dhcp"
+        }
+      ]
+    },
+    "vm_console": {
+      "title": "VM 104 console",
+      "text": "A bare shell. The bash history ends with 'nohup ./gregbot &'. Whoever wrote this has an unusual relationship with your friend, and a poor imagination.",
+      "choices": [
+        {
+          "label": "Back to Proxmox",
+          "target": "proxmox"
+        },
+        {
+          "label": "Back to the DHCP list",
+          "target": "check_dhcp"
+        },
+        {
           "label": "Close all open ports on the router",
           "target": "close_ports"
         }
@@ -184,8 +304,26 @@
           "target": "check_dhcp"
         },
         {
+          "label": "Zoom in on the keyboard",
+          "target": "pixel_zoom"
+        },
+        {
           "label": "Close all open ports on the router",
           "target": "close_ports"
+        }
+      ]
+    },
+    "pixel_zoom": {
+      "title": "Zoom in on the keyboard",
+      "text": "Pixel's paw rests on the Enter key. On the screen sits a half-typed command from last night: 'sudo rm -rf ./old_logs /'. Note the space before the slash. You have never been so grateful to a sleeping cat.",
+      "choices": [
+        {
+          "label": "Back to the camera",
+          "target": "cat_cam"
+        },
+        {
+          "label": "Back to the DHCP list",
+          "target": "check_dhcp"
         }
       ]
     },
@@ -268,8 +406,36 @@
           "target": "neighbor_wifi"
         },
         {
+          "label": "Walk to the 24h gas station",
+          "target": "gas_station"
+        },
+        {
           "label": "Wait for the sun to come up",
           "target": "logic_bomb"
+        }
+      ]
+    },
+    "gas_station": {
+      "title": "The 24h gas station",
+      "text": "Fluorescent lights, hot dogs rotating since Tuesday, and a teenager in a hoodie buying three energy drinks. The sticker on his laptop shows a cat in sunglasses. You buy a coffee that tastes like regret.",
+      "choices": [
+        {
+          "label": "Ask the teenager what he is working on",
+          "target": "teen_chat"
+        },
+        {
+          "label": "Go home",
+          "target": "no_internet"
+        }
+      ]
+    },
+    "teen_chat": {
+      "title": "'Homework'",
+      "text": "'Homework,' he says, far too quickly, and leaves without paying for the third drink. The cashier shrugs: 'Kids.' It is the middle of the night, and you have bigger problems.",
+      "choices": [
+        {
+          "label": "Go home",
+          "target": "no_internet"
         }
       ]
     },
@@ -489,8 +655,31 @@
           "target": "flash_usb_home"
         },
         {
+          "label": "Watch a YouTube tutorial instead",
+          "target": "youtube_tutorial"
+        },
+        {
           "label": "Ignore the bold text, ask an AI",
           "target": "ask_ai"
+        }
+      ]
+    },
+    "youtube_tutorial": {
+      "title": "A 47-minute tutorial",
+      "text": "Intro, sponsor segment, a second sponsor segment, 'before we begin, smash that like button'. The actual fix starts at 38:12: a live USB, a chroot and a reinstall. The top comment says the author never tested any of it.",
+      "choices": [
+        {
+          "label": "Boot the rescue USB",
+          "target": "rescue_usb",
+          "requires": "USB rescue stick"
+        },
+        {
+          "label": "Make a rescue USB",
+          "target": "flash_usb_home"
+        },
+        {
+          "label": "Skip it and ask Reddit",
+          "target": "ask_reddit"
         }
       ]
     },
@@ -501,10 +690,51 @@
         {
           "label": "See what happens",
           "target": "unknown_event"
+        },
+        {
+          "label": "Read the answer line by line first",
+          "target": "ai_read"
         }
       ],
       "gives": [
         "Ai answer"
+      ]
+    },
+    "ai_read": {
+      "title": "Read the answer first",
+      "text": "You read the command line by line. Most of it looks plausible. Two parts do not: a download from a URL ending in '.ru/k.sh', and a flag you cannot find in any manual. The AI sounds exactly as confident as before.",
+      "choices": [
+        {
+          "label": "Run it anyway",
+          "target": "unknown_event"
+        },
+        {
+          "label": "Look up the strange flag on the Arch wiki",
+          "target": "arch_wiki"
+        },
+        {
+          "label": "Ask a second AI to review it",
+          "target": "ai_review"
+        }
+      ]
+    },
+    "ai_review": {
+      "title": "A second opinion",
+      "text": "The second AI says the first AI is wrong. Then it says it is also wrong. Then it offers a third solution, with a bullet list and a warning in bold that is somehow even more confident.",
+      "choices": [
+        {
+          "label": "Run the third solution",
+          "target": "unknown_event"
+        },
+        {
+          "label": "Give up on AIs and make a rescue USB",
+          "target": "flash_usb_home"
+        },
+        {
+          "label": "Boot the rescue USB",
+          "target": "rescue_usb",
+          "requires": "USB rescue stick"
+        }
       ]
     },
     "ask_reddit": {
@@ -676,8 +906,8 @@
       "text": "The stick boots on the first try, which feels like a personal gift from past you. A live shell, a blinking cursor, and your dead disks waiting to be mounted.",
       "choices": [
         {
-          "label": "Mount, chroot and reinstall the kernel",
-          "target": "kernel_ok"
+          "label": "Unlock and mount the disks",
+          "target": "luks_prompt"
         }
       ],
       "drops": [
@@ -685,9 +915,65 @@
         "random guy from reddit"
       ]
     },
+    "luks_prompt": {
+      "title": "Enter passphrase",
+      "text": "The root disk is encrypted. A prompt blinks: 'Enter passphrase for /dev/sda2'. The passphrase lives in Vaultwarden. Vaultwarden lives on the disk you are trying to unlock. Past you left no instructions, but present you is optimistic.",
+      "choices": [
+        {
+          "label": "Type the passphrase you always use",
+          "target": "luks_wrong"
+        },
+        {
+          "label": "Look under the keyboard",
+          "target": "luks_ok"
+        }
+      ]
+    },
+    "luks_wrong": {
+      "title": "No key available",
+      "text": "'No key available with this passphrase.' You try the version with an exclamation mark. Then the version with a year. The prompt stays polite about it, which makes it worse.",
+      "choices": [
+        {
+          "label": "Try again",
+          "target": "luks_prompt"
+        },
+        {
+          "label": "Look under the keyboard",
+          "target": "luks_ok"
+        }
+      ]
+    },
+    "luks_ok": {
+      "title": "The sticky note",
+      "text": "Under the keyboard, a yellow note in your handwriting: 'LUKS: correct horse battery staple 2'. Past you was lazy, but not stupid. The disk unlocks with a satisfied click.",
+      "choices": [
+        {
+          "label": "Chroot and reinstall the kernel",
+          "target": "kernel_ok"
+        }
+      ]
+    },
     "kernel_ok": {
       "title": "Kernel reinstalled",
       "text": "The package cache comes through. A fresh kernel sits in /boot again. Before rebooting, you notice the disk still has other surprises hiding in it.",
+      "choices": [
+        {
+          "label": "Scan the disk for hidden tools",
+          "target": "scan_backdoor"
+        },
+        {
+          "label": "Verify the package signatures first",
+          "target": "sig_check"
+        },
+        {
+          "label": "Reboot right now",
+          "target": "reboot_risky"
+        }
+      ]
+    },
+    "sig_check": {
+      "title": "Package signatures",
+      "text": "Every signature is valid except one: a package 'updated' at 02:44 tonight, signed by nobody. You reinstall it from the official mirror and feel quietly brilliant.",
       "choices": [
         {
           "label": "Scan the disk for hidden tools",
@@ -788,8 +1074,50 @@
           "target": "vlan_iot"
         },
         {
+          "label": "Rotate every password",
+          "target": "rotate_pw"
+        },
+        {
+          "label": "Ask Mrs. Nagy for advice",
+          "target": "nagy_advice"
+        },
+        {
+          "label": "Set up real alerting",
+          "target": "alerting"
+        },
+        {
           "label": "Back to the lab",
           "target": "clean_hub"
+        }
+      ]
+    },
+    "rotate_pw": {
+      "title": "Rotate every password",
+      "text": "Two hundred fourteen accounts. By the 150th you stop using the generator and start typing keyboard patterns. The 215th, your own, is still 'Summer2019!'. You change it twice, out of shame.",
+      "choices": [
+        {
+          "label": "Back to hardening",
+          "target": "harden"
+        }
+      ]
+    },
+    "nagy_advice": {
+      "title": "Mrs. Nagy's advice",
+      "text": "Mrs. Nagy puts down the rolling pin, pours you tea and explains network segmentation as if she had invented it. 'In 1994 I ran a university network with forty machines and no incidents.' She hands you a handwritten list of rules and a cookie.",
+      "choices": [
+        {
+          "label": "Back to hardening",
+          "target": "harden"
+        }
+      ]
+    },
+    "alerting": {
+      "title": "Alerts that alert",
+      "text": "Uptime Kuma, ntfy and an actual escalation policy. At 3 a.m. your phone will buzz again, but now with a severity level and a link to a runbook. It is somehow worse, and somehow better.",
+      "choices": [
+        {
+          "label": "Back to hardening",
+          "target": "harden"
         }
       ]
     },
@@ -821,8 +1149,26 @@
           "target": "pay_ransom_b"
         },
         {
+          "label": "Open the 'support' chat from the ransom note",
+          "target": "ransom_chat_b"
+        },
+        {
           "label": "Back to the lab",
           "target": "clean_hub"
+        }
+      ]
+    },
+    "ransom_chat_b": {
+      "title": "Customer success",
+      "text": "A chat window opens: 'Hello! My name is Brenda from Customer Success. How can I help your recovery journey today?' Brenda offers a test decryption for a small 0.01 BTC verification fee, and a loyalty discount if you act in the next ten minutes.",
+      "choices": [
+        {
+          "label": "Pay the verification fee",
+          "target": "ending_paid"
+        },
+        {
+          "label": "Close the chat",
+          "target": "backups_clean"
         }
       ]
     },
@@ -936,8 +1282,26 @@
           "requires": "Backup key"
         },
         {
+          "label": "Open the 'support' chat from the ransom note",
+          "target": "ransom_chat"
+        },
+        {
           "label": "Back to the container status",
           "target": "containers_down"
+        }
+      ]
+    },
+    "ransom_chat": {
+      "title": "Customer success",
+      "text": "A chat window opens: 'Hello! My name is Brenda from Customer Success. How can I help your recovery journey today?' Brenda offers a test decryption for a small 0.01 BTC verification fee, and a loyalty discount if you act in the next ten minutes.",
+      "choices": [
+        {
+          "label": "Pay the verification fee",
+          "target": "ending_paid"
+        },
+        {
+          "label": "Close the chat",
+          "target": "backups"
         }
       ]
     },
@@ -1098,6 +1462,34 @@
         {
           "label": "See if any data survived",
           "target": "survivors"
+        },
+        {
+          "label": "Pull all the images at once",
+          "target": "docker_limit"
+        }
+      ]
+    },
+    "docker_limit": {
+      "title": "Rate limited",
+      "text": "'toomanyrequests: You have reached your pull rate limit.' Fourteen images, six pulls, one very long night. Docker Hub would like you to log in, pay, or wait six hours.",
+      "choices": [
+        {
+          "label": "Wait six hours",
+          "target": "rebuild_wait"
+        },
+        {
+          "label": "Go back and rebuild one service at a time",
+          "target": "rebuild_services"
+        }
+      ]
+    },
+    "rebuild_wait": {
+      "title": "Six hours later",
+      "text": "You nap on the server room floor next to a very tolerant Pixel. When you wake up, the limit has reset and every image pulls in four minutes. You feel personally wronged by the universe.",
+      "choices": [
+        {
+          "label": "Rebuild every service",
+          "target": "rebuild_services"
         }
       ]
     },
@@ -1145,11 +1537,21 @@
       "choices": [
         {
           "label": "Close the laptop. It is morning",
-          "target": "ending_phoenix"
+          "target": "morning"
         },
         {
           "label": "Not done: find who did this",
           "target": "hunt_kev"
+        }
+      ]
+    },
+    "morning": {
+      "title": "Sunrise",
+      "text": "Birds. A very ordinary morning. Mrs. Nagy knocks with a plate of cookies and a mild lecture about the time. Greg texts: 'alive?' You reply with a photo of a green dashboard.",
+      "choices": [
+        {
+          "label": "Eat a cookie and go to sleep",
+          "target": "ending_phoenix"
         }
       ]
     },
@@ -1169,8 +1571,84 @@
         {
           "label": "Set a honeypot",
           "target": "honeypot_setup"
+        },
+        {
+          "label": "Find out how he got in",
+          "target": "root_cause"
         }
       ]
+    },
+    "root_cause": {
+      "title": "How did he get in?",
+      "text": "You trace the first request backwards. Not the SSH key, not the fridge: a login on Portainer, port 9443, forwarded 'temporarily' in 2022. The password was 'admin'. It was not temporary.",
+      "choices": [
+        {
+          "label": "Open Portainer's audit log",
+          "target": "portainer_log"
+        },
+        {
+          "label": "Back to the investigation",
+          "target": "hunt_kev"
+        }
+      ]
+    },
+    "portainer_log": {
+      "title": "Portainer's audit log",
+      "text": "One login at 02:38, user 'admin', from a Tor exit node. Then a container named 'backup' started, mounted the Docker socket you exposed 'for convenience', and walked straight into the host. Every door was open, and you were the one who opened it.",
+      "choices": [
+        {
+          "label": "Write the post-mortem",
+          "target": "postmortem_draft"
+        },
+        {
+          "label": "Harden the lab",
+          "target": "harden"
+        },
+        {
+          "label": "Back to the investigation",
+          "target": "hunt_kev"
+        }
+      ]
+    },
+    "postmortem_draft": {
+      "title": "The post-mortem",
+      "text": "Blameless format: timeline, impact, root cause, what went well, action items. 'Do not forward ports temporarily' is action item number one. Action item number two is also 'do not forward ports temporarily'. It feels good to write.",
+      "choices": [
+        {
+          "label": "Send it to Greg for review",
+          "target": "greg_review"
+        },
+        {
+          "label": "Publish it on your blog",
+          "target": "ending_postmortem"
+        },
+        {
+          "label": "Back to the investigation",
+          "target": "hunt_kev"
+        }
+      ]
+    },
+    "greg_review": {
+      "title": "Greg's review",
+      "text": "Greg returns it in eleven minutes with forty comments and one line in green: 'Good. Now go to sleep.' Under the action items he adds: 'Expire my old key. Sorry.' You publish it together.",
+      "choices": [
+        {
+          "label": "Publish it",
+          "target": "ending_postmortem"
+        }
+      ]
+    },
+    "ending_postmortem": {
+      "title": "Blameless",
+      "text": "Your post-mortem reaches the front page of r/homelab. Strangers thank you for being honest about the 'admin' password. Three of them confess to theirs. The fridge is still on a VLAN, and the lesson is public, permanent and free.",
+      "choices": [
+        {
+          "label": "Play again",
+          "target": "start"
+        }
+      ],
+      "reset": true,
+      "ending": "success"
     },
     "kev_logs": {
       "title": "Connection logs",
@@ -1201,11 +1679,105 @@
         {
           "label": "Report the username",
           "target": "report_kev"
+        },
+        {
+          "label": "Open the coding club page",
+          "target": "club_page"
         }
       ],
       "drops": [
         "Kev's handle"
       ]
+    },
+    "club_page": {
+      "title": "The coding club page",
+      "text": "'Thursday Coding Club, 4 p.m., room 12. Mentor: G. Horvath.' A group photo: nine kids, one beaming sysadmin who is definitely Greg, and an old laptop with a sticker: 'donated by Greg, 2021'. The authorized_keys file suddenly makes a lot more sense.",
+      "choices": [
+        {
+          "label": "Call Greg",
+          "target": "greg_confession"
+        },
+        {
+          "label": "Back to the investigation",
+          "target": "hunt_kev"
+        }
+      ]
+    },
+    "greg_confession": {
+      "title": "Greg confesses",
+      "text": "Greg goes quiet for a long time. 'The old laptop. I donated it to the club in 2021 and never wiped it. The key was still on it. Oh no. Oh no.' He is not defending himself. He is just very, very sorry.",
+      "choices": [
+        {
+          "label": "Visit the club with Greg on Thursday",
+          "target": "club_visit"
+        },
+        {
+          "label": "Make the deal with Kev directly",
+          "target": "kev_deal"
+        },
+        {
+          "label": "Take it to the police",
+          "target": "report_kev"
+        }
+      ]
+    },
+    "club_visit": {
+      "title": "Thursday, room 12",
+      "text": "Greg opens the door of a classroom that smells of whiteboard markers and pizza. Eight kids look up. One goes pale. Kev stands up slowly, laptop in hand, cat-in-sunglasses sticker and all. Nobody speaks for a very long time.",
+      "choices": [
+        {
+          "label": "Offer him a deal",
+          "target": "kev_deal"
+        },
+        {
+          "label": "Turn it into a lesson for the whole club",
+          "target": "club_lesson"
+        },
+        {
+          "label": "Hand it over to the school principal",
+          "target": "principal"
+        }
+      ]
+    },
+    "club_lesson": {
+      "title": "A teachable moment",
+      "text": "You ask Greg for the projector. You show the logs, the Portainer screen, the 'admin' password. Then you ask the room: how would you have stopped this? Hands go up. Kev's goes up last, and then fastest.",
+      "choices": [
+        {
+          "label": "Turn your lab into a capture-the-flag",
+          "target": "ending_club"
+        },
+        {
+          "label": "Go back and make the deal with Kev",
+          "target": "kev_deal"
+        }
+      ]
+    },
+    "principal": {
+      "title": "The principal",
+      "text": "The principal listens, nods, takes notes and says the school has a policy for this. It involves forms. And three weeks. Kev's face tells you everything about how he feels about forms.",
+      "choices": [
+        {
+          "label": "Insist on the police instead",
+          "target": "report_kev"
+        },
+        {
+          "label": "Settle it with Kev directly",
+          "target": "kev_deal"
+        }
+      ]
+    },
+    "ending_club": {
+      "title": "Capture the Flag",
+      "text": "Two weeks later your rebuilt, hardened homelab is the practice target of the Thursday club. Kev wins his own challenge and loses the argument about whether it was fair. Greg brings pizza. The fridge refuses to be a flag.",
+      "choices": [
+        {
+          "label": "Play again",
+          "target": "start"
+        }
+      ],
+      "reset": true,
+      "ending": "success"
     },
     "honeypot_setup": {
       "title": "Set a honeypot",
@@ -1223,6 +1795,28 @@
     "kev_returns": {
       "title": "Kev returns",
       "text": "At 5:12 a.m. the honeypot lights up. Someone logs in and starts exploring. He types very slowly. 'ls'. 'cd'. 'ls' again. He seems nervous.",
+      "choices": [
+        {
+          "label": "Just watch what he does",
+          "target": "watch_kev"
+        },
+        {
+          "label": "Trace the connection",
+          "target": "trace_kev"
+        },
+        {
+          "label": "Open a chat window in his terminal",
+          "target": "dm_kev"
+        },
+        {
+          "label": "Hack him back",
+          "target": "counter_hack"
+        }
+      ]
+    },
+    "watch_kev": {
+      "title": "Watch him",
+      "text": "You do nothing and watch. Kev opens a text editor, types 'how to look like a hacker', closes it, tries 'sudo rm -rf /' on the honeypot, laughs nervously and then types 'is anyone there?' into the shell. He is clearly alone and clearly not a professional.",
       "choices": [
         {
           "label": "Trace the connection",
@@ -1253,16 +1847,86 @@
         {
           "label": "Hack him back",
           "target": "counter_hack"
+        },
+        {
+          "label": "Post what you found on r/homelab",
+          "target": "doxx_post"
         }
       ]
+    },
+    "doxx_post": {
+      "title": "Post it",
+      "text": "Title: 'FOUND THE KID WHO WRECKED MY LAB'. You attach his school and his handle. 400 upvotes in ten minutes. 4,000 in an hour. Somebody has already found his home address, and somebody else the school's phone number. Your inbox fills up.",
+      "choices": [
+        {
+          "label": "Keep refreshing",
+          "target": "ending_doxx"
+        },
+        {
+          "label": "Delete the post. Now",
+          "target": "doxx_delete"
+        }
+      ]
+    },
+    "doxx_delete": {
+      "title": "Deleted",
+      "text": "The post is gone from your account. The screenshots are not. Somewhere in the county a sixteen-year-old's phone starts ringing, and it is not yet seven in the morning.",
+      "choices": [
+        {
+          "label": "Call the police yourself and explain",
+          "target": "report_kev"
+        },
+        {
+          "label": "Face what you did",
+          "target": "ending_doxx"
+        }
+      ]
+    },
+    "ending_doxx": {
+      "title": "The Internet Never Forgets",
+      "text": "Kev changes schools. You are banned from three forums and your lab is still half-rebuilt. The post that made you feel powerful is now the first search result for your name. The wrong tool, again.",
+      "choices": [
+        {
+          "label": "Play again",
+          "target": "start"
+        }
+      ],
+      "reset": true,
+      "ending": "fail"
     },
     "dm_kev": {
       "title": "Talk to Kev",
       "text": "You type: 'Hi Kev. We need to talk.' A long pause. Then: 'omg pls dont call my mom'. He sounds exactly as scared as a sixteen-year-old should.",
       "choices": [
         {
+          "label": "Ask how he got in",
+          "target": "kev_confession"
+        },
+        {
           "label": "Offer him a deal",
           "target": "kev_deal"
+        },
+        {
+          "label": "Tell him you are calling the police",
+          "target": "report_kev"
+        }
+      ]
+    },
+    "kev_confession": {
+      "title": "Kev explains",
+      "text": "Kev types for a full minute without stopping. Portainer with 'admin' as the password. A leftover SSH key from a donated laptop at his coding club. A script he found on a forum. 'Honestly I thought nobody would notice for a week,' he adds, apologetically.",
+      "choices": [
+        {
+          "label": "Offer him a deal",
+          "target": "kev_deal"
+        },
+        {
+          "label": "Ask whose laptop that was",
+          "target": "greg_confession"
+        },
+        {
+          "label": "Write the post-mortem",
+          "target": "postmortem_draft"
         },
         {
           "label": "Tell him you are calling the police",
